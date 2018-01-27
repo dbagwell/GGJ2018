@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class City : MonoBehaviour {
-    List<City> connectingCities;
+    public List<City> connectingCities;
     List<Disease> diseaseList;
     List<Cure> cureList;
-    int outbreakLevel;
+    public int outbreakLevel;
 	// Use this for initialization
 	void Start () {
         connectingCities = new List<City>();

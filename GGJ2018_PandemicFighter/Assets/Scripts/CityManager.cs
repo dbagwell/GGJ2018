@@ -8,19 +8,26 @@ public class CityManager : MonoBehaviour {
     public List<GameObject> diseasedCities;
     public List<GameObject> deadCities;
     public List<GameObject> cleanCities;
-    public Image cleanCity;
-    public Image diseasedCity;
-    public Image deadCity;
+    public Sprite cleanCity;
+    public Sprite diseasedCity;
+    public Sprite deadCity;
 
     public int outbreakLimit = 5;
 
 	// Use this for initialization
 	void Start ()
     {
-        cityDirectory = new List<GameObject>();
+        //cityDirectory = new List<GameObject>();
         cleanCities = new List<GameObject>();
         diseasedCities = new List<GameObject>();
         deadCities = new List<GameObject>();
+
+        Sprite tempSprite;
+        for(int i = 0;i<cityDirectory.Count;i++)
+        {
+            cityDirectory[i].GetComponent<Image>().sprite = cleanCity;
+            cleanCities.Add(cityDirectory[i]);
+        }
 	}
 	
 	// Update is called once per frame
@@ -37,7 +44,7 @@ public class CityManager : MonoBehaviour {
         for (i = 0; i < diseasedCities.Count; i++)
         {
             tempCity = diseasedCities[i].GetComponent<City>();
-            if (tempCity.DoIHaveAllCures())
+           // if (tempCity.DoIHaveAllCures())
             {
                 IncreaseOutbreak(diseasedCities[i]);
             }
