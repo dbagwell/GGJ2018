@@ -52,11 +52,13 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\City.cs" />
+     <Compile Include="Assets\Scripts\CityInfoPanel.cs" />
      <Compile Include="Assets\Scripts\CityManager.cs" />
      <Compile Include="Assets\Scripts\Cure.cs" />
      <Compile Include="Assets\Scripts\Disease.cs" />
      <Compile Include="Assets\Scripts\InputManager.cs" />
      <Compile Include="Assets\Scripts\Pathway.cs" />
+     <Compile Include="Assets\Scripts\StrainItem.cs" />
      <Compile Include="Assets\Scripts\TurnManager.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

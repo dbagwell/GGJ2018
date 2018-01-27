@@ -5,16 +5,17 @@ using UnityEngine;
 public class City : MonoBehaviour {
     public List<City> connectingCities;
     public List<City> diseaseConnectingCities;
-    List<Disease> diseaseList;
-    List<Cure> cureList;
+	public List<Disease> diseaseList;
+    public List<Cure> cureList;
     public int outbreakLevel;
+	public string name;
     
 	// Use this for initialization
 	void Start () {
         //connectingCities = new List<City>();
         diseaseList = new List<Disease>();
         cureList = new List<Cure>();
-        outbreakLevel = 0;		
+        outbreakLevel = 0;	
 	}
 	
 	// Update is called once per frame
