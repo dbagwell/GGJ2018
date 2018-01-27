@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Disease : MonoBehaviour {
-
-    public int strainID
+    int strainID;
+    public int StrainID
     {
         get { return strainID; }
         set { strainID = value; }
