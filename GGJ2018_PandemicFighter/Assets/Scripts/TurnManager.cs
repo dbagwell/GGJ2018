@@ -11,6 +11,7 @@ public class TurnManager : MonoBehaviour {
 	public GameObject passTurnScreenText;
 
 	public Player currentPlayer = Player.Disease;
+	public int turn = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -25,6 +26,7 @@ public class TurnManager : MonoBehaviour {
 	public void EndTurnButtonPressed () {
 		ToggleCurrentPlayer();
 		passTurnScreen.SetActive(true);
+		turn++;
 	}
 
 	public void StartTurnButtonPressed () {

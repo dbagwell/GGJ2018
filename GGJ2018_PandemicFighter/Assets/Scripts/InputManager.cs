@@ -63,10 +63,16 @@ public class InputManager : MonoBehaviour {
                             Debug.Log("Strain Button");
                             break;
                         }
-                    case Clickables.City:
-                        {
-						cityInfoPanel.City = selectedObject.GetComponent<City>();
-						cityInfoPanel.gameObject.SetActive(true);
+                    case Clickables.City: {
+
+						if (tm.turn == 0 && tm.currentPlayer == Player.Disease && !cm.firstCityInfected) {
+							cm.InfectCity(selectedObject, 0);
+							cm.firstCityInfected = true;
+						} else {
+							City city = selectedObject.GetComponent<City>();
+							cityInfoPanel.City = city;
+							cityInfoPanel.gameObject.SetActive(true);
+						}
 							
 //                            //A City has been selected
 //                            Player currentPlayer = tm.currentPlayer;

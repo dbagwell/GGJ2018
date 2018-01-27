@@ -13,6 +13,7 @@ public class CityManager : MonoBehaviour {
     public Sprite deadCity;
 
     public int outbreakLimit = 5;
+	public bool firstCityInfected = false;
 
 	// Use this for initialization
 	void Start ()
@@ -88,12 +89,13 @@ public class CityManager : MonoBehaviour {
     }
 
 
-    public void InfectCity(GameObject city/*, Disease strain */)
+    public void InfectCity(GameObject city, int strainId)
     {
         int i;
         bool found = false;
         Disease strain = new Disease();
-        strain.StrainID = 2;
+        strain.StrainID = strainId;
+		strain.name = "Strain " + strainId;
 
         City tempCity = city.GetComponent<City>();
         tempCity.AddDisease(strain);
