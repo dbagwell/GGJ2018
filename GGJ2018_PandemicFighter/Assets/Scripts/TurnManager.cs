@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-enum Player {Disease, Doctor};
+public enum Player {Disease, Doctor};
 
 public class TurnManager : MonoBehaviour {
 	
@@ -24,12 +24,11 @@ public class TurnManager : MonoBehaviour {
 
 	public void EndTurnButtonPressed () {
 		ToggleCurrentPlayer();
-		// Setup passTurnScreen
 		passTurnScreen.SetActive(true);
-		// Update map
 	}
 
 	public void StartTurnButtonPressed () {
+		// send current player to city manager and tell it to update the cities and pathways for that turn
 		passTurnScreen.SetActive(false);
 	}
 
