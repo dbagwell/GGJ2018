@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114138234869377756}
   m_Layer: 5
   m_Name: CityPrefab
-  m_TagString: Untagged
+  m_TagString: City
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40,6 +40,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18cc15a241927e14aa28251f0b129d94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  connectingCities: []
+  diseaseConnectingCities: []
+  outbreakLevel: 0
 --- !u!114 &114289176640623996
 MonoBehaviour:
   m_ObjectHideFlags: 1

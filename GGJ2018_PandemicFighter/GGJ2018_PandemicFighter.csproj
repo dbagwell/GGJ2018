@@ -298,6 +298,7 @@
     <Compile Include="Assets\Scripts\CityManager.cs" />
     <Compile Include="Assets\Scripts\Cure.cs" />
     <Compile Include="Assets\Scripts\Disease.cs" />
+    <Compile Include="Assets\Scripts\InputManager.cs" />
     <Compile Include="Assets\Scripts\Pathway.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

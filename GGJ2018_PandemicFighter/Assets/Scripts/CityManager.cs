@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class CityManager : MonoBehaviour {
     public List<GameObject> cityDirectory;
-    public List<GameObject> diseasedCities;
-    public List<GameObject> deadCities;
-    public List<GameObject> cleanCities;
+//    public List<GameObject> diseasedCities;
+//    public List<GameObject> deadCities;
+//    public List<GameObject> cleanCities;
     public Sprite cleanCity;
     public Sprite diseasedCity;
     public Sprite deadCity;
@@ -18,15 +18,15 @@ public class CityManager : MonoBehaviour {
 	void Start ()
     {
         //cityDirectory = new List<GameObject>();
-        cleanCities = new List<GameObject>();
-        diseasedCities = new List<GameObject>();
-        deadCities = new List<GameObject>();
+//        cleanCities = new List<GameObject>();
+//        diseasedCities = new List<GameObject>();
+//        deadCities = new List<GameObject>();
 
         Sprite tempSprite;
         for(int i = 0;i<cityDirectory.Count;i++)
         {
             cityDirectory[i].GetComponent<Image>().sprite = cleanCity;
-            cleanCities.Add(cityDirectory[i]);
+//            cleanCities.Add(cityDirectory[i]);
         }
 	}
 	
@@ -41,12 +41,12 @@ public class CityManager : MonoBehaviour {
         int i;
         City tempCity;
         // Increase outbreak levels
-        for (i = 0; i < diseasedCities.Count; i++)
+        for (i = 0; i < cityDirectory.Count; i++)
         {
-            tempCity = diseasedCities[i].GetComponent<City>();
+            tempCity = cityDirectory[i].GetComponent<City>();
            // if (tempCity.DoIHaveAllCures())
             {
-                IncreaseOutbreak(diseasedCities[i]);
+                IncreaseOutbreak(cityDirectory[i]);
             }
         }
     }
@@ -57,16 +57,19 @@ public class CityManager : MonoBehaviour {
     }
 
 
-    public void InfectCity(GameObject city)
+    public void InfectCity(GameObject city/*, Disease strain */)
     {
         int i;
         bool found = false;
+        Disease strain = new Disease();
+        strain.StrainID = 2;
 
         City tempCity = city.GetComponent<City>();
+        tempCity.AddDisease(strain);
 
-        for (i = 0; i < cleanCities.Count; i++)
+        for (i = 0; i < cityDirectory.Count; i++)
         {
-            if (cleanCities[i] == city)
+            if (cityDirectory[i] == city)
             {
                 found = true;
                 break;
@@ -75,9 +78,9 @@ public class CityManager : MonoBehaviour {
 
         if (found)
         {
-
-            cleanCities.RemoveAt(i);
-            diseasedCities.Add(city);
+            city.GetComponent<Image>().sprite = diseasedCity;
+            //cleanCities.RemoveAt(i);
+            //diseasedCities.Add(city);
         }
     }
 
@@ -91,9 +94,9 @@ public class CityManager : MonoBehaviour {
 
         if (tempCity.GetOutbreakLevel() > outbreakLimit)
         {
-            for (i = 0; i < diseasedCities.Count; i++)
+            for (i = 0; i < cityDirectory.Count; i++)
             {
-                if (diseasedCities[i] == city)
+                if (cityDirectory[i] == city)
                 {
                     found = true;
                     break;
@@ -102,9 +105,9 @@ public class CityManager : MonoBehaviour {
 
             if (found)
             {
-
-                diseasedCities.RemoveAt(i);
-                deadCities.Add(city);
+                city.GetComponent<Image>().sprite = deadCity;
+                //diseasedCities.RemoveAt(i);
+                //deadCities.Add(city);
             }
         }
     }

@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class City : MonoBehaviour {
     public List<City> connectingCities;
+    public List<City> diseaseConnectingCities;
     List<Disease> diseaseList;
     List<Cure> cureList;
     public int outbreakLevel;
+    
 	// Use this for initialization
 	void Start () {
-        connectingCities = new List<City>();
+        //connectingCities = new List<City>();
         diseaseList = new List<Disease>();
         cureList = new List<Cure>();
         outbreakLevel = 0;		
@@ -31,7 +33,7 @@ public class City : MonoBehaviour {
             result = false;
             for (j = 0; j < cureList.Count; j++)
             {
-                if (diseaseList[i].strainID == cureList[j].strainID)
+                if (diseaseList[i].StrainID == cureList[j].strainID)
                 {
                     result = true;
                     break;
@@ -47,7 +49,10 @@ public class City : MonoBehaviour {
     }
     public void IncreaseOutbreakLevel()
     {
-        outbreakLevel++;
+        if (diseaseList.Count > 0)
+        {
+            outbreakLevel++;
+        }
     }
 
     public int GetOutbreakLevel()
