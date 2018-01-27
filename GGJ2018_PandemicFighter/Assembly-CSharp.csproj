@@ -52,8 +52,10 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\City.cs" />
+     <Compile Include="Assets\Scripts\CityManager.cs" />
      <Compile Include="Assets\Scripts\Cure.cs" />
      <Compile Include="Assets\Scripts\Disease.cs" />
+     <Compile Include="Assets\Scripts\InputManager.cs" />
      <Compile Include="Assets\Scripts\Pathway.cs" />
      <Compile Include="Assets\Scripts\TurnManager.cs" />
  <Reference Include="UnityEngine.UI">

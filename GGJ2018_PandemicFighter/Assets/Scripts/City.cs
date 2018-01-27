@@ -1,16 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Collections;
 
 public class City : MonoBehaviour {
-    List<City> connectingCities;
+    public List<City> connectingCities;
+    public List<City> diseaseConnectingCities;
     List<Disease> diseaseList;
     List<Cure> cureList;
-    int outbreakLevel;
+    public int outbreakLevel;
+    
 	// Use this for initialization
 	void Start () {
-        connectingCities = new List<City>();
+        //connectingCities = new List<City>();
         diseaseList = new List<Disease>();
         cureList = new List<Cure>();
         outbreakLevel = 0;		
@@ -22,9 +23,36 @@ public class City : MonoBehaviour {
 		
 	}
 
+    public bool DoIHaveAllCures()
+    {
+        int i;
+        int j;
+        bool result = false;
+        for (i = 0; i < diseaseList.Count; i++)
+        {
+            result = false;
+            for (j = 0; j < cureList.Count; j++)
+            {
+                if (diseaseList[i].StrainID == cureList[j].strainID)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            if (result == false)
+            {
+                break;
+            }
+        }
+
+        return result;
+    }
     public void IncreaseOutbreakLevel()
     {
-        outbreakLevel++;
+        if (diseaseList.Count > 0)
+        {
+            outbreakLevel++;
+        }
     }
 
     public int GetOutbreakLevel()
