@@ -7,9 +7,17 @@ using UnityEngine.EventSystems;
 public class InputManager : MonoBehaviour {
 
     public const string CITY_TAG = "City";
-    GameObject cityObject;
+    
     public CityManager cm;
+    public TurnManager tm;
     public List<RaycastResult> hitObjects = new List<RaycastResult>();
+
+    // Holding Variables
+    public GameObject cityObject;
+    public bool citySelected = false;
+    public Disease selectedDisease;
+    public Cure selectedCure;
+
     // Use this for initialization
     void Start () {
 		
@@ -22,11 +30,23 @@ public class InputManager : MonoBehaviour {
         {
             cityObject = GetCityTransformUnderMouse();
 
-
             if (cityObject != null)
             {
-                City tempCity = cityObject.GetComponent<City>();
-                cm.InfectCity(cityObject);
+                //A City has been selected
+                Player currentPlayer = tm.currentPlayer;
+                City tempCity = cityObject.GetComponent<City>(); 
+
+                // If current Player is the disease
+                if (currentPlayer == Player.Disease)
+                {
+                    cm.InfectCity(cityObject);
+                }
+                // if current Player is the Doctors
+                else
+                {
+                    cm.CureCity(cityObject);
+                }
+
             }
         }
     }

@@ -33,7 +33,7 @@ public class City : MonoBehaviour {
             result = false;
             for (j = 0; j < cureList.Count; j++)
             {
-                if (diseaseList[i].StrainID == cureList[j].strainID)
+                if (diseaseList[i].StrainID == cureList[j].StrainID)
                 {
                     result = true;
                     break;
@@ -52,6 +52,14 @@ public class City : MonoBehaviour {
         if (diseaseList.Count > 0)
         {
             outbreakLevel++;
+        }
+    }
+
+    public void DecreaseOutbreakLevel()
+    {
+        if (outbreakLevel > 0)
+        {
+            outbreakLevel--;
         }
     }
 
@@ -83,7 +91,7 @@ public class City : MonoBehaviour {
 
         for (i=0;i<cureList.Count;i++)
         {
-            if (cureList[i].strainID == strainId)
+            if (cureList[i].StrainID == strainId)
             {
                 result = true;
                 break;
