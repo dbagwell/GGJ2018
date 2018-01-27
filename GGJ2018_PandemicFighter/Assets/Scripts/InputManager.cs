@@ -24,6 +24,7 @@ public class InputManager : MonoBehaviour {
     
     public CityManager cm;
     public TurnManager tm;
+	public CityInfoPanel cityInfoPanel;
     public List<RaycastResult> hitObjects = new List<RaycastResult>();
 
     // Holding Variables
@@ -64,20 +65,23 @@ public class InputManager : MonoBehaviour {
                         }
                     case Clickables.City:
                         {
-                            //A City has been selected
-                            Player currentPlayer = tm.currentPlayer;
-                            City tempCity = selectedObject.GetComponent<City>();
-
-                            // If current Player is the disease
-                            if (currentPlayer == Player.Disease)
-                            {
-                                cm.InfectCity(selectedObject);
-                            }
-                            // if current Player is the Doctors
-                            else
-                            {
-                                cm.CureCity(selectedObject);
-                            }
+						cityInfoPanel.City = selectedObject.GetComponent<City>();
+						cityInfoPanel.gameObject.SetActive(true);
+							
+//                            //A City has been selected
+//                            Player currentPlayer = tm.currentPlayer;
+//                            City tempCity = selectedObject.GetComponent<City>();
+//
+//                            // If current Player is the disease
+//                            if (currentPlayer == Player.Disease)
+//                            {
+//                                cm.InfectCity(selectedObject);
+//                            }
+//                            // if current Player is the Doctors
+//                            else
+//                            {
+//                                cm.CureCity(selectedObject);
+//                            }
                             break;
                         }
                 }

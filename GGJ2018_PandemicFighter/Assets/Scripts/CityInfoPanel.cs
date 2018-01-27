@@ -31,12 +31,12 @@ public class CityInfoPanel : MonoBehaviour {
 
 
 		// Test code
-		City city = Instantiate(cityPrefab, transform.position, transform.rotation);
-		Disease disease = new Disease();
-		disease.name = "Strain A";
-		city.AddDisease(disease);
-		city.name = "Regina";
-		City = city;
+//		City city = Instantiate(cityPrefab, transform.position, transform.rotation);
+//		Disease disease = new Disease();
+//		disease.name = "Strain A";
+//		city.AddDisease(disease);
+//		city.name = "Regina";
+//		City = city;
 	}
 	
 	// Update is called once per frame
@@ -45,6 +45,10 @@ public class CityInfoPanel : MonoBehaviour {
 	}
 
 	void PopulateStrainItems () {
+		for (int i = 0; i<strainItemList.transform.childCount; i++) {
+			GameObject.Destroy(strainItemList.transform.GetChild(i).gameObject);
+		}
+
 		for (int i = 0; i<city.diseaseList.Count; i++) {
 			StrainItem newStrainItem = Instantiate(strainItemPrefab, transform.position, transform.rotation);
 			newStrainItem.transform.parent = strainItemList.transform;
