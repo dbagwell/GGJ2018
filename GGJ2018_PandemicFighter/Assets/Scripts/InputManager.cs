@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,16 +6,33 @@ using UnityEngine.EventSystems;
 
 public class InputManager : MonoBehaviour {
 
+    public enum Clickables
+    {
+        Nothing,
+        City,
+        Disease,
+        Cure,
+        Strain,
+        Button
+    }
+    public const string CLICKABLE_TAG = "Clickable";
     public const string CITY_TAG = "City";
+    public const string STRAIN_TAG = "Strain";
+    public const string DISEASE_TAG = "Disease";
+    public const string CURE_TAG = "Cure";
+    public const string BUTTON_TAG = "Button";
     
     public CityManager cm;
     public TurnManager tm;
     public List<RaycastResult> hitObjects = new List<RaycastResult>();
 
     // Holding Variables
-    public GameObject cityObject;
+    public GameObject selectedObject;
+    public Clickables lastSelected = Clickables.Nothing;
+    public City selectedCity;
     public bool citySelected = false;
     public Disease selectedDisease;
+    public bool diseaseSelected = false;
 
     // Use this for initialization
     void Start () {
@@ -27,25 +44,48 @@ public class InputManager : MonoBehaviour {
     {
         if (Input.GetMouseButtonDown(0))
         {
-            cityObject = GetCityTransformUnderMouse();
+            selectedObject = GetTransformUnderMouse();
 
-            if (cityObject != null)
+            if (selectedObject != null)
             {
-                //A City has been selected
-                Player currentPlayer = tm.currentPlayer;
-                City tempCity = cityObject.GetComponent<City>(); 
-
-                // If current Player is the disease
-                if (currentPlayer == Player.Disease)
+                switch (lastSelected)
                 {
-                    cm.InfectCity(cityObject);
-                }
-                // if current Player is the Doctors
-                else
-                {
-                    cm.CureCity(cityObject);
-                }
+                    case Clickables.Button:
+                        {
+                            Debug.Log("Some sort of Button");
+                            string tempText = selectedObject.GetComponentInChildren<Text>().text;
+                            Debug.Log(tempText);
+                            break;
+                        }
+                    case Clickables.Strain:
+                        {
+                            Debug.Log("Strain Button");
+                            break;
+                        }
+                    case Clickables.City:
+                        {
+                            //A City has been selected
+                            Player currentPlayer = tm.currentPlayer;
+                            City tempCity = selectedObject.GetComponent<City>();
 
+                            // If current Player is the disease
+                            if (currentPlayer == Player.Disease)
+                            {
+                                cm.InfectCity(selectedObject);
+                            }
+                            // if current Player is the Doctors
+                            else
+                            {
+                                cm.CureCity(selectedObject);
+                            }
+                            break;
+                        }
+                }
+            }
+            else
+            {
+                citySelected = false;
+                diseaseSelected = false;
             }
         }
     }
@@ -65,12 +105,37 @@ public class InputManager : MonoBehaviour {
         return hitObjects[0].gameObject;
     }
 
-    private GameObject GetCityTransformUnderMouse()
+    private GameObject GetTransformUnderMouse()
     {
         GameObject clickedObject = GetObjectUnderMouse();
 
-        if (clickedObject != null && clickedObject.tag == CITY_TAG)
-        {
+        if (clickedObject != null)
+            {
+            switch(clickedObject.tag)
+            {
+                case CITY_TAG:
+                    {
+                        citySelected = true;
+                        lastSelected = Clickables.City;
+                        break;
+                    }
+                case STRAIN_TAG:
+                    {
+                        lastSelected = Clickables.Strain;
+                        diseaseSelected = true;
+                        break;
+                    }
+                case BUTTON_TAG:
+                    {
+                        lastSelected = Clickables.Button;
+                        break;
+                    }
+                default:
+                    {
+                        lastSelected = Clickables.Nothing;
+                        return null;
+                    }
+            }
             return clickedObject;
         }
 

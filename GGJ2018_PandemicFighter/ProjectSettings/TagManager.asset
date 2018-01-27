@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - City
+  - Clickable
+  - Disease
+  - Cure
+  - Strain
+  - Button
   layers:
   - Default
   - TransparentFX
