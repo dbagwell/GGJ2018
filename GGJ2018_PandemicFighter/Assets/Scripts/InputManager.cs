@@ -51,45 +51,50 @@ public class InputManager : MonoBehaviour {
             {
                 switch (lastSelected)
                 {
-                    case Clickables.Button:
-                        {
+                    case Clickables.Button: {
                             Debug.Log("Some sort of Button");
                             string tempText = selectedObject.GetComponentInChildren<Text>().text;
                             Debug.Log(tempText);
                             break;
                         }
-                    case Clickables.Strain:
-                        {
-                            Debug.Log("Strain Button");
-                            break;
-                        }
-                    case Clickables.City: {
+                    case Clickables.Strain: {
 
+						StrainItem strainItem = selectedObject.GetComponent<StrainItem>();
+						selectedDisease = strainItem.Disease;
+
+						switch (tm.currentPlayer) {
+						case Player.Disease: {
+								// Bring up options to mutate or spread
+//								cm.InfectCity(selectedObject);
+								break;
+							}
+
+						case Player.Doctor: {
+								if (selectedDisease.isCured) {
+									//Setup UI for sending cure
+								} else {
+									// Bring up button asking to cure
+//									cm.CureCity(selectedObject);
+								}
+
+								break;
+							}
+						}
+                        
+						break;
+                    }
+                    case Clickables.City: {
 						if (tm.turn == 0 && tm.currentPlayer == Player.Disease && !cm.firstCityInfected) {
 							cm.InfectCity(selectedObject, 0);
 							cm.firstCityInfected = true;
 						} else {
-							City city = selectedObject.GetComponent<City>();
-							cityInfoPanel.City = city;
+							selectedCity = selectedObject.GetComponent<City>();
+							cityInfoPanel.City = selectedCity;
 							cityInfoPanel.gameObject.SetActive(true);
 						}
-							
-//                            //A City has been selected
-//                            Player currentPlayer = tm.currentPlayer;
-//                            City tempCity = selectedObject.GetComponent<City>();
-//
-//                            // If current Player is the disease
-//                            if (currentPlayer == Player.Disease)
-//                            {
-//                                cm.InfectCity(selectedObject);
-//                            }
-//                            // if current Player is the Doctors
-//                            else
-//                            {
-//                                cm.CureCity(selectedObject);
-//                            }
-                            break;
-                        }
+
+						break;
+                    }
                 }
             }
             else
