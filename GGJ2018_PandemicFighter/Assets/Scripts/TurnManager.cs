@@ -10,7 +10,7 @@ public class TurnManager : MonoBehaviour {
 	public GameObject passTurnScreen;
 	public GameObject passTurnScreenText;
 
-	Player currentPlayer = Player.Disease;
+	public Player currentPlayer = Player.Disease;
 
 	// Use this for initialization
 	void Start () {
