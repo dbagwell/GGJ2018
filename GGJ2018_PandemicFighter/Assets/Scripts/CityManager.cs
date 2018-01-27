@@ -63,11 +63,10 @@ public class CityManager : MonoBehaviour {
     {
         int i;
         bool found = false;
-        Cure strain = new Cure();
-        strain.StrainID = 2;
+        int strainID = 2;
 
         City tempCity = city.GetComponent<City>();
-        tempCity.AddCure(strain);
+		tempCity.CureDisease(strainID);
 
         for (i = 0; i < cityDirectory.Count; i++)
         {

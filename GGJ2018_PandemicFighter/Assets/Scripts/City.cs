@@ -6,7 +6,6 @@ public class City : MonoBehaviour {
     public List<City> connectingCities;
     public List<City> diseaseConnectingCities;
 	public List<Disease> diseaseList;
-    public List<Cure> cureList;
     public int outbreakLevel;
 	public string name;
     
@@ -14,7 +13,6 @@ public class City : MonoBehaviour {
 	void Start () {
         //connectingCities = new List<City>();
         diseaseList = new List<Disease>();
-        cureList = new List<Cure>();
         outbreakLevel = 0;	
 	}
 	
@@ -26,28 +24,16 @@ public class City : MonoBehaviour {
 
     public bool DoIHaveAllCures()
     {
-        int i;
-        int j;
-        bool result = false;
-        for (i = 0; i < diseaseList.Count; i++)
+        for (int i = 0; i < diseaseList.Count; i++)
         {
-            result = false;
-            for (j = 0; j < cureList.Count; j++)
-            {
-                if (diseaseList[i].StrainID == cureList[j].StrainID)
-                {
-                    result = true;
-                    break;
-                }
-            }
-            if (result == false)
-            {
-                break;
-            }
+			if (!diseaseList[i].isCured) {
+				return false;
+			}
         }
 
-        return result;
+        return true;
     }
+
     public void IncreaseOutbreakLevel()
     {
         if (diseaseList.Count > 0)
@@ -80,25 +66,31 @@ public class City : MonoBehaviour {
         diseaseList.Add(newStrain);
     }
 
-    public void AddCure(Cure newCure)
+    public void CureDisease(int strainId)
     {
-        cureList.Add(newCure);
+		int i;
+
+		for (i=0;i<diseaseList.Count;i++)
+		{
+			if (diseaseList[i].StrainID == strainId)
+			{
+				diseaseList[i].isCured = true;
+			}
+		}
     }
 
     public bool CheckForCure(int strainId)
     {
-        bool result = false;
         int i;
 
-        for (i=0;i<cureList.Count;i++)
+        for (i=0;i<diseaseList.Count;i++)
         {
-            if (cureList[i].StrainID == strainId)
+			if (diseaseList[i].StrainID == strainId && diseaseList[i].isCured)
             {
-                result = true;
-                break;
+				return true;
             }
         }
         
-        return result;
+        return false;
     }
 }

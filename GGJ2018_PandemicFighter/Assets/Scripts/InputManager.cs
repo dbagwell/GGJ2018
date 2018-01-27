@@ -16,7 +16,6 @@ public class InputManager : MonoBehaviour {
     public GameObject cityObject;
     public bool citySelected = false;
     public Disease selectedDisease;
-    public Cure selectedCure;
 
     // Use this for initialization
     void Start () {
