@@ -36,6 +36,8 @@ public class InputManager : MonoBehaviour {
     public Disease selectedDisease;
     public bool diseaseSelected = false;
 
+	public bool isInTransmittingMode = false;
+
     // Use this for initialization
     void Start () {
 		
@@ -99,6 +101,23 @@ public class InputManager : MonoBehaviour {
 						if (tm.turn == 0 && tm.currentPlayer == Player.Disease && !cm.firstCityInfected) {
 							cm.InfectCity(selectedObject, 0);
 							cm.firstCityInfected = true;
+						} else if (isInTransmittingMode) {
+							City nextCity = selectedObject.GetComponent<City>();
+
+							switch (tm.currentPlayer) {
+							case Player.Disease: {
+									for (int i = 0; i<selectedCity.diseaseConnectingCities.Count; i++) {
+										if (selectedCity.diseaseConnectingCities[i] == nextCity) {
+											cm.InfectCity(nextCity.gameObject, selectedDisease.StrainID);
+										}
+									}
+									break;
+								}
+							case Player.Doctor: {
+
+									break;
+								}
+							}
 						} else {
 							selectedCity = selectedObject.GetComponent<City>();
 							cityInfoPanel.City = selectedCity;

@@ -20,6 +20,7 @@ public class ActionPanel : MonoBehaviour {
 	public Material yellowLineMaterial;
 
 	public CityInfoPanel cityInfoPanel;
+	public InputManager inputManager;
 
 	ActionPanelState state;
 	public ActionPanelState State {
@@ -78,6 +79,7 @@ public class ActionPanel : MonoBehaviour {
 	public void SendCureButtonPressed() {
 		gameObject.SetActive(false);
 		cityInfoPanel.gameObject.SetActive(false);
+		inputManager.isInTransmittingMode = true;
 		// Show selectable cities
 	}
 
@@ -99,6 +101,8 @@ public class ActionPanel : MonoBehaviour {
 			lineRenderer.material = yellowLineMaterial;
 			Debug.Log("Yellow");
 		}
+
+		inputManager.isInTransmittingMode = true;
 		// Show selectable cities
 	}
 }
