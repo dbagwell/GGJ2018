@@ -31,8 +31,8 @@ public class TurnManager : MonoBehaviour {
     public void Reset()
     {
         turnCounter = 0;
-        currentPlayer = Player.Disease;
-        passTurnScreen.SetActive(false);
+		currentPlayer = Player.Doctor;
+		ToggleCurrentPlayer();
         resetButton.SetActive(false);
     }
     public void ReportWinner()
@@ -53,7 +53,11 @@ public class TurnManager : MonoBehaviour {
         }
     }
 
-    public void EndTurnButtonPressed () {
+	public void EndTurnButtonPressed () {
+		if (currentPlayer == Player.Doctor) {
+			turnCounter++;
+		}
+
 		ToggleCurrentPlayer();
         passTurnScreen.SetActive(true);
 	}
@@ -91,7 +95,6 @@ public class TurnManager : MonoBehaviour {
 			image.color = Color.red;
 			text.text = "Disease's Turn";
 			currentPlayer = Player.Disease;
-            turnCounter++;
             cityManager.StartDiseaseTurn();
             break;
 		}
