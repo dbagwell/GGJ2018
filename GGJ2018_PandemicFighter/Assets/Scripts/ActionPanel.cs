@@ -11,6 +11,9 @@ public class ActionPanel : MonoBehaviour {
 	public Sprite diseaseSprite;
 	public Sprite cureSprite;
 
+	public AudioSource infectAudioSource;
+	public AudioSource cureAudioSource;
+
 	public Image image;
 	public Button researchButton;
 	public Button sendCureButton;
@@ -78,6 +81,7 @@ public class ActionPanel : MonoBehaviour {
 		gameObject.SetActive(false);
 		cityInfoPanel.gameObject.SetActive(false);
 		inputManager.InputState = InputState.EndTurn;
+		cureAudioSource.Play();
 	}
 
 	public void SendCureButtonPressed() {
@@ -122,6 +126,7 @@ public class ActionPanel : MonoBehaviour {
 		gameObject.SetActive(false);
 		cityInfoPanel.gameObject.SetActive(false);
 		inputManager.InputState = InputState.EndTurn;
+		infectAudioSource.Play();
 	}
 
 	public void SpreadButtonPressed() {

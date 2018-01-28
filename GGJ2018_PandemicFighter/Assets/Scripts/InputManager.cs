@@ -25,6 +25,9 @@ public class InputManager : MonoBehaviour {
     public const string STRAIN_TAG = "Strain";
 	public const string BUTTON_TAG = "Button";
 	public const string PANEL_TAG = "Panel";
+
+	public AudioSource infectAudioSource;
+	public AudioSource cureAudioSource;
     
     public CityManager cm;
     public TurnManager tm;
@@ -115,6 +118,7 @@ public class InputManager : MonoBehaviour {
 							cm.InfectCity(selectedObject, 0);
 							cm.firstCityInfected = true;
 							InputState = InputState.SelectCity;
+							infectAudioSource.Play();
 							break;
 						} 
 						case InputState.Transmit: {
@@ -129,6 +133,7 @@ public class InputManager : MonoBehaviour {
                                             cm.ResetLines(tm.currentPlayer);
 											selectedCity.diseaseTransmitAnimation.SetActive(false);
                                             InputState = InputState.EndTurn;
+											infectAudioSource.Play();
                                         }
 									}
 								}
@@ -144,6 +149,7 @@ public class InputManager : MonoBehaviour {
                                             cm.ResetLines(tm.currentPlayer);
                                             selectedCity.cureTransmitAnimation.SetActive(false);
                                             InputState = InputState.EndTurn;
+											cureAudioSource.Play();
                                         }
                                     }
 									}
