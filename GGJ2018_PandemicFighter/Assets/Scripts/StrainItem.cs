@@ -36,7 +36,7 @@ public class StrainItem : MonoBehaviour {
 		
 	}
 
-	void updateTextBackground () {
+	void updateTextBackgroundAndImage () {
         tm = FindObjectOfType<TurnManager>();
         if (disease.isCured) {
             if (tm.currentPlayer == Player.Disease)
