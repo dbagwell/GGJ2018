@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\ActionPanel.cs" />
      <Compile Include="Assets\Scripts\City.cs" />
      <Compile Include="Assets\Scripts\CityInfoPanel.cs" />
      <Compile Include="Assets\Scripts\CityManager.cs" />

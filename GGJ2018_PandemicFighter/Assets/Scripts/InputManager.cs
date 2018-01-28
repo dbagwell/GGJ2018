@@ -25,6 +25,7 @@ public class InputManager : MonoBehaviour {
     public CityManager cm;
     public TurnManager tm;
 	public CityInfoPanel cityInfoPanel;
+	public ActionPanel actionPanel;
     public List<RaycastResult> hitObjects = new List<RaycastResult>();
 
     // Holding Variables
@@ -57,7 +58,8 @@ public class InputManager : MonoBehaviour {
                             Debug.Log(tempText);
                             break;
                         }
-                    case Clickables.Strain: {
+				case Clickables.Strain: {
+						Debug.Log("Disease");
 
 						StrainItem strainItem = selectedObject.GetComponent<StrainItem>();
 						selectedDisease = strainItem.Disease;
@@ -65,6 +67,8 @@ public class InputManager : MonoBehaviour {
 						switch (tm.currentPlayer) {
 						case Player.Disease: {
 								// Bring up options to mutate or spread
+								actionPanel.State = ActionPanelState.Disease;
+								actionPanel.gameObject.SetActive(true);
 //								cm.InfectCity(selectedObject);
 								break;
 							}
@@ -72,8 +76,12 @@ public class InputManager : MonoBehaviour {
 						case Player.Doctor: {
 								if (selectedDisease.isCured) {
 									//Setup UI for sending cure
+									actionPanel.State = ActionPanelState.SendCure;
+									actionPanel.gameObject.SetActive(true);
 								} else {
 									// Bring up button asking to cure
+									actionPanel.State = ActionPanelState.Research;
+									actionPanel.gameObject.SetActive(true);
 //									cm.CureCity(selectedObject);
 								}
 
@@ -124,8 +132,12 @@ public class InputManager : MonoBehaviour {
     {
         GameObject clickedObject = GetObjectUnderMouse();
 
-        if (clickedObject != null)
-            {
+		while (clickedObject != null && clickedObject.transform.parent != null && clickedObject.tag == "Untagged") {
+			clickedObject = clickedObject.transform.parent.gameObject;
+		}
+
+		if (clickedObject != null) {
+
             switch(clickedObject.tag)
             {
                 case CITY_TAG:
@@ -135,7 +147,7 @@ public class InputManager : MonoBehaviour {
                         break;
                     }
                 case STRAIN_TAG:
-                    {
+				{
                         lastSelected = Clickables.Strain;
                         diseaseSelected = true;
                         break;
