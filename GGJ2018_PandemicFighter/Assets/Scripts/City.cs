@@ -13,8 +13,8 @@ public class City : MonoBehaviour {
 	public GameObject diseaseTransmitAnimation;
 
 
-	public List<GameObject> diseaseLines = new List<GameObject>();
-	public List<GameObject> doctorLines = new List<GameObject>();
+	public List<Pathway> diseaseLines = new List<Pathway>();
+	public List<Pathway> doctorLines = new List<Pathway>();
     
 	// Use this for initialization
 	void Start () {

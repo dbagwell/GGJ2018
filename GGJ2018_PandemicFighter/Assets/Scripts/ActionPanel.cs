@@ -85,7 +85,34 @@ public class ActionPanel : MonoBehaviour {
 		cityInfoPanel.gameObject.SetActive(false);
 		city.cureTransmitAnimation.SetActive(true);
 
-		HighlightLines(city.doctorLines);
+		List<GameObject> lines = new List<GameObject>();
+
+		for (int i = 0; i<city.doctorLines.Count; i++) {
+			City connectedCity;
+			if (city.doctorLines[i].city1 == city) {
+				Debug.Log("city2");
+				connectedCity = city.doctorLines[i].city2;
+			} else {
+				Debug.Log("city2");
+				connectedCity = city.doctorLines[i].city1;
+			}
+
+			List<Disease> diseases = connectedCity.diseaseList;
+			bool hasStrain = false;
+			for (int j = 0; j<diseases.Count; j++) {
+				if (diseases[j].StrainID == disease.StrainID && diseases[j].isCured) {
+					Debug.Log("hasStrain");
+					hasStrain = true;
+				}
+			}
+
+			if (!hasStrain) {
+				Debug.Log("addLine");
+				lines.Add(city.doctorLines[i].line);
+			}
+		}
+
+		HighlightLines(lines);
 
 		inputManager.InputState = InputState.Transmit;
 	}
@@ -103,8 +130,36 @@ public class ActionPanel : MonoBehaviour {
 		cityInfoPanel.gameObject.SetActive(false);
 		city.diseaseTransmitAnimation.SetActive(true);
 
-		HighlightLines(city.diseaseLines);
+		List<GameObject> lines = new List<GameObject>();
 
+		for (int i = 0; i<city.diseaseLines.Count; i++) {
+			City connectedCity;
+			if (city.diseaseLines[i].city1 == city) {
+				Debug.Log("city2");
+				connectedCity = city.diseaseLines[i].city2;
+			} else {
+				Debug.Log("city2");
+				connectedCity = city.diseaseLines[i].city1;
+			}
+			
+			List<Disease> diseases = connectedCity.diseaseList;
+			bool hasStrain = false;
+			for (int j = 0; j<diseases.Count; j++) {
+				if (diseases[j].StrainID == disease.StrainID) {
+					Debug.Log("hasStrain");
+					hasStrain = true;
+				}
+			}
+
+			if (!hasStrain) {
+				Debug.Log("addLine");
+				lines.Add(city.diseaseLines[i].line);
+			}
+		}
+
+		HighlightLines(lines);
+
+		Debug.Log("Transmit");
 		inputManager.InputState = InputState.Transmit;
 	}
 

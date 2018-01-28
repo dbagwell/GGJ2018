@@ -18,8 +18,8 @@ public class CityManager : MonoBehaviour {
 
 	public GameObject diseasePathsParent;
 	public GameObject doctorPathsParent;
-	public List<GameObject> diseaseLines = new List<GameObject>();
-	public List<GameObject> doctorLines = new List<GameObject>();
+	public List<Pathway> diseaseLines = new List<Pathway>();
+	public List<Pathway> doctorLines = new List<Pathway>();
 
     public int outbreakLimit = 5;
 	public bool firstCityInfected = false;
@@ -39,14 +39,32 @@ public class CityManager : MonoBehaviour {
 			City city = cityDirectory[i].GetComponent<City>();
 
 			for (int j = 0; j<city.connectingCities.Count; j++) {
-				GameObject line = CreateLineBetweenCities(city, city.connectingCities[j], Player.Doctor);
-				city.doctorLines.Add(line);
-				city.connectingCities[j].doctorLines.Add(line);
+				GameObject line = CreateLineBetweenCities(city, city.connectingCities[j]);
+				Pathway pathway = new Pathway();
+				pathway.city1 = city;
+				pathway.city2 = city.connectingCities[j];
+				pathway.line = line;
+
+				if (AddPathwayToList(pathway, doctorLines, Player.Doctor, true)) {
+					AddPathwayToList(pathway, city.doctorLines, Player.Doctor, false);
+					AddPathwayToList(pathway, city.connectingCities[j].doctorLines, Player.Doctor, false);
+				} else {
+					GameObject.Destroy(pathway.line);
+				}
 			}
 			for (int j = 0; j<city.diseaseConnectingCities.Count; j++) {
-				GameObject line = CreateLineBetweenCities(city, city.diseaseConnectingCities[j], Player.Disease);
-				city.diseaseLines.Add(line);
-				city.diseaseConnectingCities[j].diseaseLines.Add(line);
+				GameObject line = CreateLineBetweenCities(city, city.diseaseConnectingCities[j]);
+				Pathway pathway = new Pathway();
+				pathway.city1 = city;
+				pathway.city2 = city.diseaseConnectingCities[j];
+				pathway.line = line;
+
+				if (AddPathwayToList(pathway, diseaseLines, Player.Disease, true)) {
+					AddPathwayToList(pathway, city.diseaseLines, Player.Disease, false);
+					AddPathwayToList(pathway, city.diseaseConnectingCities[j].diseaseLines, Player.Doctor, false);
+				} else {
+					GameObject.Destroy(pathway.line);
+				}
 			}
 
 			doctorPathsParent.SetActive(false);
@@ -57,6 +75,40 @@ public class CityManager : MonoBehaviour {
 	void Update ()
     {
 		
+	}
+
+	bool AddPathwayToList(Pathway pathway, List<Pathway> list, Player player, bool addToScene) {
+
+		bool foundPathway = false;
+		for (int i = 0; i<list.Count; i++) {
+			if (pathway.city1 == list[i].city1 && pathway.city2 == list[i].city2 || pathway.city1 == list[i].city2 && pathway.city2 == list[i].city1) {
+				foundPathway = true;
+				break;
+			}
+		}
+
+		if (!foundPathway) {
+			list.Add(pathway);
+
+			if (addToScene) {	
+				switch (player) {
+				case Player.Disease: {
+						Debug.Log(pathway.city1.name + pathway.city2.name);	
+						pathway.line.transform.parent = diseasePathsParent.transform;
+						break;
+					}
+				case Player.Doctor: {
+						pathway.line.transform.parent = doctorPathsParent.gameObject.transform;
+						break;
+					}
+				}
+
+			}
+
+			return true;
+		} else {
+			return false;
+		}
 	}
 
     public void Reset()
@@ -74,7 +126,7 @@ public class CityManager : MonoBehaviour {
 		switch (player) {
 		case Player.Disease: {
 				for (int i = 0; i<diseaseLines.Count; i++) {
-					GameObject line = diseaseLines[i];
+					GameObject line = diseaseLines[i].line;
 					LineRenderer lineRenderer = line.GetComponent<LineRenderer>();
 					lineRenderer.material = blackLineMaterial;
 				}
@@ -85,7 +137,7 @@ public class CityManager : MonoBehaviour {
 			}
 		case Player.Doctor: {
 				for (int i = 0; i<doctorLines.Count; i++) {
-					GameObject line = doctorLines[i];
+					GameObject line = doctorLines[i].line;
 					LineRenderer lineRenderer = line.GetComponent<LineRenderer>();
 					lineRenderer.material = blackLineMaterial;
 				}
@@ -98,7 +150,7 @@ public class CityManager : MonoBehaviour {
 
 	}
 
-	GameObject CreateLineBetweenCities(City city1, City city2, Player player) {
+	GameObject CreateLineBetweenCities(City city1, City city2) {
 		GameObject line = new GameObject();
 		LineRenderer lineRenderer = line.AddComponent<LineRenderer>();
 		lineRenderer.startWidth = 10;
@@ -113,20 +165,6 @@ public class CityManager : MonoBehaviour {
 		secondPosition.z = 150;
 
 		lineRenderer.SetPositions(new [] {firstPosition, secondPosition});
-
-
-		switch (player) {
-		case Player.Disease: {
-				diseaseLines.Add(line);
-				line.transform.parent = diseasePathsParent.transform;
-				break;
-			}
-		case Player.Doctor: {
-				doctorLines.Add(line);
-				line.transform.parent = doctorPathsParent.gameObject.transform;
-				break;
-			}
-		}
 
 		return line;
 	}
