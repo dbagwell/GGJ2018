@@ -80,7 +80,6 @@ public class ActionPanel : MonoBehaviour {
 		gameObject.SetActive(false);
 		cityInfoPanel.gameObject.SetActive(false);
 		inputManager.isInTransmittingMode = true;
-		// Show selectable cities
 	}
 
 	public void MutateButtonPressed() {
@@ -93,16 +92,17 @@ public class ActionPanel : MonoBehaviour {
 	public void SpreadButtonPressed() {
 		gameObject.SetActive(false);
 		cityInfoPanel.gameObject.SetActive(false);
-		Debug.Log("Spread");
-		for (int i = 0; i<city.diseaseLines.Count; i++) {
-			Debug.Log("Line");
-			GameObject line = city.diseaseLines[i];
-			LineRenderer lineRenderer = line.GetComponent<LineRenderer>();
-			lineRenderer.material = yellowLineMaterial;
-			Debug.Log("Yellow");
-		}
+
+		HighlightLines(city.diseaseLines);
 
 		inputManager.isInTransmittingMode = true;
-		// Show selectable cities
+	}
+
+	void HighlightLines(List<GameObject> lines) {
+		for (int i = 0; i<lines.Count; i++) {
+			GameObject line = lines[i];
+			LineRenderer lineRenderer = line.GetComponent<LineRenderer>();
+			lineRenderer.material = yellowLineMaterial;
+		}
 	}
 }
