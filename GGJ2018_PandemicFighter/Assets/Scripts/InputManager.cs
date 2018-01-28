@@ -137,13 +137,15 @@ public class InputManager : MonoBehaviour {
 							case Player.Doctor: {
 								for (int i = 0; i<selectedCity.connectingCities.Count; i++) {
 									if (selectedCity.connectingCities[i] == nextCity) {
-                                        if (cm.isAlive(nextCity))
+                                    if (cm.isAlive(nextCity))
+                                    {
+                                        if (cm.CureCity(nextCity.gameObject, selectedDisease.StrainID))
                                         {
-                                            cm.CureCity(nextCity.gameObject, selectedDisease.StrainID);
-											cm.ResetLines(tm.currentPlayer);
-											selectedCity.cureTransmitAnimation.SetActive(false);
+                                            cm.ResetLines(tm.currentPlayer);
+                                            selectedCity.cureTransmitAnimation.SetActive(false);
                                             InputState = InputState.EndTurn;
                                         }
+                                    }
 									}
 								}
 								break;
@@ -152,9 +154,13 @@ public class InputManager : MonoBehaviour {
 							break;
 						} 
 						case InputState.SelectCity: {
-							selectedCity = selectedObject.GetComponent<City>();
-							cityInfoPanel.City = selectedCity;
-							cityInfoPanel.gameObject.SetActive(true);
+                            selectedCity = selectedObject.GetComponent<City>();
+                            if (cm.isAlive(selectedCity))
+                            {
+                                
+                                cityInfoPanel.City = selectedCity;
+                                cityInfoPanel.gameObject.SetActive(true);
+                            }
 							break;
 						}
 						}
