@@ -13,6 +13,10 @@ public class ActionPanel : MonoBehaviour {
 	public Button mutateButton;
 	public Button spreadButton;
 
+	public Disease disease;
+	public City city;
+	public CityManager cityManager;
+
 	ActionPanelState state;
 	public ActionPanelState State {
 		get {
@@ -61,18 +65,24 @@ public class ActionPanel : MonoBehaviour {
 	}
 
 	public void ResearchButtonPressed() {
-
+		disease.isCured = true;
+		gameObject.SetActive(false);
+		// Update rest of the ui
 	}
 
 	public void SendCureButtonPressed() {
-
+		gameObject.SetActive(false);
+		// Show selectable cities
 	}
 
 	public void MutateButtonPressed() {
-
+		cityManager.InfectCity(city.gameObject, disease.StrainID+1);
+		gameObject.SetActive(false);
+		// Upate the rest of the ui
 	}
 
 	public void SpreadButtonPressed() {
-
+		gameObject.SetActive(false);
+		// Show selectable cities
 	}
 }

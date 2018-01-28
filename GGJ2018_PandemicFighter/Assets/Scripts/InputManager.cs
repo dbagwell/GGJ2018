@@ -64,6 +64,10 @@ public class InputManager : MonoBehaviour {
 						StrainItem strainItem = selectedObject.GetComponent<StrainItem>();
 						selectedDisease = strainItem.Disease;
 
+						actionPanel.disease = selectedDisease;
+						actionPanel.city = selectedCity;
+						actionPanel.cityManager = cm;
+
 						switch (tm.currentPlayer) {
 						case Player.Disease: {
 								// Bring up options to mutate or spread
