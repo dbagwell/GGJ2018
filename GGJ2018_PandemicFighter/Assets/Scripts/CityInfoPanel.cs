@@ -50,6 +50,7 @@ public class CityInfoPanel : MonoBehaviour {
 		}
 
 		for (int i = 0; i<city.diseaseList.Count; i++) {
+
 			StrainItem newStrainItem = Instantiate(strainItemPrefab, transform.position, transform.rotation);
 			newStrainItem.transform.parent = strainItemList.transform;
 			newStrainItem.Disease = city.diseaseList[i];

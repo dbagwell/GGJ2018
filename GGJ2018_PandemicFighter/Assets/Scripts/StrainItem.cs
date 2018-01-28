@@ -17,13 +17,16 @@ public class StrainItem : MonoBehaviour {
 		}
 	}
 
+    public TurnManager tm;
 	public Image icon;
 	public Image textBackground;
 	public Text text;
 
 	// Use this for initialization
 	void Start () {
-	}
+       
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -31,8 +34,15 @@ public class StrainItem : MonoBehaviour {
 	}
 
 	void updateTextBackground () {
-		if (disease.isCured) {
-			textBackground.color = Color.green;
+        tm = FindObjectOfType<TurnManager>();
+        if (disease.isCured) {
+            if (tm.currentPlayer == Player.Disease)
+            {
+                icon.raycastTarget = false;
+                textBackground.raycastTarget = false;
+                text.raycastTarget = false;
+            }
+            textBackground.color = Color.green;
 		} else {
 			textBackground.color = Color.red;
 		}
