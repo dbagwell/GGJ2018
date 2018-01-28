@@ -73,7 +73,7 @@ public class ActionPanel : MonoBehaviour {
 		disease.isCured = true;
 		gameObject.SetActive(false);
 		cityInfoPanel.gameObject.SetActive(false);
-		// Update rest of the ui
+		inputManager.InputState = InputState.EndTurn;
 	}
 
 	public void SendCureButtonPressed() {
@@ -82,23 +82,24 @@ public class ActionPanel : MonoBehaviour {
 
 		HighlightLines(city.doctorLines);
 
-		inputManager.isInTransmittingMode = true;
+		inputManager.InputState = InputState.Transmit;
 	}
 
 	public void MutateButtonPressed() {
 		cityManager.InfectCity(city.gameObject, disease.StrainID+1);
 		gameObject.SetActive(false);
 		cityInfoPanel.gameObject.SetActive(false);
-		// Upate the rest of the ui
+		inputManager.InputState = InputState.EndTurn;
 	}
 
 	public void SpreadButtonPressed() {
+		Debug.Log("Spread");
 		gameObject.SetActive(false);
 		cityInfoPanel.gameObject.SetActive(false);
 
 		HighlightLines(city.diseaseLines);
 
-		inputManager.isInTransmittingMode = true;
+		inputManager.InputState = InputState.Transmit;
 	}
 
 	void HighlightLines(List<GameObject> lines) {

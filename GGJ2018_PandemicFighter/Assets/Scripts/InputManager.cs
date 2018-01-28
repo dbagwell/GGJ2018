@@ -4,28 +4,33 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+public enum InputState {
+	InfectFirstCity,
+	SelectCity,
+	Transmit,
+	EndTurn
+}
+
 public class InputManager : MonoBehaviour {
 
     public enum Clickables
     {
         Nothing,
         City,
-        Disease,
-        Cure,
         Strain,
-        Button
+        Button,
+		Panel
     }
-    public const string CLICKABLE_TAG = "Clickable";
     public const string CITY_TAG = "City";
     public const string STRAIN_TAG = "Strain";
-    public const string DISEASE_TAG = "Disease";
-    public const string CURE_TAG = "Cure";
-    public const string BUTTON_TAG = "Button";
+	public const string BUTTON_TAG = "Button";
+	public const string PANEL_TAG = "Panel";
     
     public CityManager cm;
     public TurnManager tm;
 	public CityInfoPanel cityInfoPanel;
 	public ActionPanel actionPanel;
+	public Button endTurnButton;
     public List<RaycastResult> hitObjects = new List<RaycastResult>();
 
     // Holding Variables
@@ -36,7 +41,16 @@ public class InputManager : MonoBehaviour {
     public Disease selectedDisease;
     public bool diseaseSelected = false;
 
-	public bool isInTransmittingMode = false;
+	InputState inputState = InputState.InfectFirstCity;
+	public InputState InputState {
+		get {
+			return inputState;
+		}
+		set {
+			inputState = value;
+			endTurnButton.interactable = inputState == InputState.EndTurn;
+		}
+	}
 
     // Use this for initialization
     void Start () {
@@ -96,40 +110,47 @@ public class InputManager : MonoBehaviour {
 						break;
                     }
                     case Clickables.City: {
-						if (tm.turnCounter == 0 && tm.currentPlayer == Player.Disease && !cm.firstCityInfected) {
+						switch (inputState) {
+						case InputState.InfectFirstCity: {
 							cm.InfectCity(selectedObject, 0);
 							cm.firstCityInfected = true;
-						} else if (isInTransmittingMode) {
+							InputState = InputState.SelectCity;
+							break;
+						} 
+						case InputState.Transmit: {
 							City nextCity = selectedObject.GetComponent<City>();
 
 							switch (tm.currentPlayer) {
 							case Player.Disease: {
-									for (int i = 0; i<selectedCity.diseaseConnectingCities.Count; i++) {
-										if (selectedCity.diseaseConnectingCities[i] == nextCity) {
-											cm.InfectCity(nextCity.gameObject, selectedDisease.StrainID);
-											cm.ResetLines(tm.currentPlayer);
-											isInTransmittingMode = false;
-										}
+								for (int i = 0; i<selectedCity.diseaseConnectingCities.Count; i++) {
+									if (selectedCity.diseaseConnectingCities[i] == nextCity) {
+										cm.InfectCity(nextCity.gameObject, selectedDisease.StrainID);
+										cm.ResetLines(tm.currentPlayer);
+										InputState = InputState.EndTurn;
 									}
-									break;
 								}
-							case Player.Doctor: {
-									for (int i = 0; i<selectedCity.connectingCities.Count; i++) {
-										if (selectedCity.connectingCities[i] == nextCity) {
-											cm.CureCity(nextCity.gameObject, selectedDisease.StrainID);
-											cm.ResetLines(tm.currentPlayer);
-											isInTransmittingMode = false;
-										}
-									}
-									break;
-								}
+								break;
 							}
-						} else {
+							case Player.Doctor: {
+								for (int i = 0; i<selectedCity.connectingCities.Count; i++) {
+									if (selectedCity.connectingCities[i] == nextCity) {
+										cm.CureCity(nextCity.gameObject, selectedDisease.StrainID);
+										cm.ResetLines(tm.currentPlayer);
+										InputState = InputState.EndTurn;
+									}
+								}
+								break;
+							}
+							}
+							break;
+						} 
+						case InputState.SelectCity: {
 							selectedCity = selectedObject.GetComponent<City>();
 							cityInfoPanel.City = selectedCity;
 							cityInfoPanel.gameObject.SetActive(true);
+							break;
 						}
-
+						}
 						break;
                     }
                 }
@@ -186,9 +207,20 @@ public class InputManager : MonoBehaviour {
                         lastSelected = Clickables.Button;
                         break;
                     }
+			case PANEL_TAG:
+				{
+					lastSelected = Clickables.Panel;
+					break;
+				}
+
                 default:
-                    {
-                        lastSelected = Clickables.Nothing;
+				{
+					lastSelected = Clickables.Nothing;
+					if (actionPanel.gameObject.activeSelf) {
+						actionPanel.gameObject.SetActive(false);
+					} else {
+						cityInfoPanel.gameObject.SetActive(false);
+					}
                         return null;
                     }
             }

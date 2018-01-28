@@ -10,6 +10,7 @@ public class TurnManager : MonoBehaviour {
 	public GameObject passTurnScreen;
 	public GameObject passTurnScreenText;
 
+	public InputManager inputManager;
 	public CityManager cityManager;
     public GameObject resetButton;
 
@@ -64,6 +65,13 @@ public class TurnManager : MonoBehaviour {
 
     public void StartTurnButtonPressed () {
 		cityManager.ResetLines(currentPlayer);
+
+		if (turnCounter == 0 && currentPlayer == Player.Disease) {
+			inputManager.InputState = InputState.InfectFirstCity;
+		} else {
+			inputManager.InputState = InputState.SelectCity;
+		}
+
 		passTurnScreen.SetActive(false);
 	}
 
