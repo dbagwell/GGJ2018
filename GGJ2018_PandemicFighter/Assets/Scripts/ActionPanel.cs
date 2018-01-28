@@ -122,11 +122,12 @@ public class ActionPanel : MonoBehaviour {
 	}
 
 	public void MutateButtonPressed() {
-		cityManager.InfectCity(city.gameObject, disease.StrainID+1);
-		gameObject.SetActive(false);
-		cityInfoPanel.gameObject.SetActive(false);
-		inputManager.InputState = InputState.EndTurn;
-		infectAudioSource.Play();
+		if (cityManager.InfectCity(city.gameObject, disease.StrainID+1)) {
+			gameObject.SetActive(false);
+			cityInfoPanel.gameObject.SetActive(false);
+			inputManager.InputState = InputState.EndTurn;
+			infectAudioSource.Play();
+		}
 	}
 
 	public void SpreadButtonPressed() {
