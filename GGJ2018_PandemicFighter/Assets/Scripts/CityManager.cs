@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class CityManager : MonoBehaviour {
+
     public List<GameObject> cityDirectory;
 //    public List<GameObject> diseasedCities;
 //    public List<GameObject> deadCities;
@@ -11,6 +12,12 @@ public class CityManager : MonoBehaviour {
     public Sprite cleanCity;
     public Sprite diseasedCity;
     public Sprite deadCity;
+
+
+	public GameObject diseasePathsParent;
+	public GameObject doctorPathsParent;
+	public List<GameObject> diseaseLines = new List<GameObject>();
+	public List<GameObject> doctorlLines = new List<GameObject>();
 
     public int outbreakLimit = 5;
 	public bool firstCityInfected = false;
@@ -25,8 +32,16 @@ public class CityManager : MonoBehaviour {
 
         for(int i = 0;i<cityDirectory.Count;i++)
         {
-            cityDirectory[i].GetComponent<Image>().sprite = cleanCity;
-//            cleanCities.Add(cityDirectory[i]);
+			cityDirectory[i].GetComponent<Image>().sprite = cleanCity;
+
+			City city = cityDirectory[i].GetComponent<City>();
+
+			for (int j = 0; j<city.connectingCities.Count; j++) {
+				CreateLineBetweenCities(city, city.connectingCities[j], Player.Doctor);
+			}
+			for (int j = 0; j<city.diseaseConnectingCities.Count; j++) {
+				CreateLineBetweenCities(city, city.diseaseConnectingCities[j], Player.Disease);
+			}
         }
 	}
 	
@@ -34,6 +49,37 @@ public class CityManager : MonoBehaviour {
 	void Update ()
     {
 		
+	}
+
+	void CreateLineBetweenCities(City city1, City city2, Player player) {
+		GameObject line = new GameObject();
+		LineRenderer lineRenderer = line.AddComponent<LineRenderer>();
+		lineRenderer.startWidth = 10;
+		lineRenderer.endWidth = 10;
+		lineRenderer.material = new Material(Shader.Find("Specular"));
+		lineRenderer.startColor = Color.black;
+		lineRenderer.endColor = Color.black;
+
+		Vector3 firstPosition = city1.gameObject.transform.position;
+		firstPosition.z = 100;
+		Vector3 secondPosition = city2.gameObject.transform.position;
+		secondPosition.z = 100;
+
+		lineRenderer.SetPositions(new [] {firstPosition, secondPosition});
+
+
+		switch (player) {
+		case Player.Disease: {
+				diseaseLines.Add(line);
+				line.transform.parent = diseasePathsParent.transform;
+				break;
+			}
+		case Player.Doctor: {
+				doctorlLines.Add(line);
+				line.transform.parent = doctorPathsParent.gameObject.transform;
+				break;
+			}
+		}
 	}
 
     public void StartDiseaseTurn()

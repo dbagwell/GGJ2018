@@ -431,6 +431,11 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 67944200}
+--- !u!1 &86689732 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1049531278905080, guid: f539a70f98c5eac4baa361a812cbf4ea,
+    type: 2}
+  m_PrefabInternal: {fileID: 676476395}
 --- !u!224 &86689733 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224387448685233236, guid: f539a70f98c5eac4baa361a812cbf4ea,
@@ -890,14 +895,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31327ea1d9f063240b1156cc83f9cc0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  map: {fileID: 331208283}
   cityDirectory:
   - {fileID: 111167887}
   - {fileID: 1432854528}
   - {fileID: 1855703666}
   - {fileID: 1114607534}
-  cleanCity: {fileID: 21300000, guid: c237b3822b8a6054b91706206bc3aad5, type: 3}
-  diseasedCity: {fileID: 21300000, guid: 1579e9677881f154d8dcff8cab9a242f, type: 3}
-  deadCity: {fileID: 21300000, guid: 51c5f9b6eed59c142948a66e5863ac59, type: 3}
+  - {fileID: 86689732}
+  - {fileID: 570632321}
+  - {fileID: 1102548363}
+  - {fileID: 872698042}
+  - {fileID: 748778992}
+  - {fileID: 1828833990}
+  cleanCity: {fileID: 21300000, guid: 589ab2521f73f414383d5bf0e85c454b, type: 3}
+  diseasedCity: {fileID: 21300000, guid: b3e6c674f79803648846537411f6ca96, type: 3}
+  deadCity: {fileID: 21300000, guid: 331d70fb4c1be584ba7645458ebf7bb5, type: 3}
   outbreakLimit: 5
   firstCityInfected: 0
 --- !u!114 &121673815
@@ -1888,6 +1900,11 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!1 &570632321 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1049531278905080, guid: f539a70f98c5eac4baa361a812cbf4ea,
+    type: 2}
+  m_PrefabInternal: {fileID: 1079172055}
 --- !u!224 &570632322 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224387448685233236, guid: f539a70f98c5eac4baa361a812cbf4ea,
@@ -2269,6 +2286,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f539a70f98c5eac4baa361a812cbf4ea, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &748778992 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1049531278905080, guid: f539a70f98c5eac4baa361a812cbf4ea,
+    type: 2}
+  m_PrefabInternal: {fileID: 111009448}
 --- !u!224 &748778993 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224387448685233236, guid: f539a70f98c5eac4baa361a812cbf4ea,
@@ -2402,6 +2424,11 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 774602156}
+--- !u!1 &872698042 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1049531278905080, guid: f539a70f98c5eac4baa361a812cbf4ea,
+    type: 2}
+  m_PrefabInternal: {fileID: 1833383004}
 --- !u!224 &872698043 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224387448685233236, guid: f539a70f98c5eac4baa361a812cbf4ea,
@@ -3055,6 +3082,9 @@ MonoBehaviour:
   sendCureButton: {fileID: 8630614}
   mutateButton: {fileID: 482175444}
   spreadButton: {fileID: 1992377093}
+  disease: {fileID: 0}
+  city: {fileID: 0}
+  cityManager: {fileID: 0}
 --- !u!224 &1087413692
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3111,6 +3141,11 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1087413690}
+--- !u!1 &1102548363 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1049531278905080, guid: f539a70f98c5eac4baa361a812cbf4ea,
+    type: 2}
+  m_PrefabInternal: {fileID: 989419273}
 --- !u!224 &1102548364 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224387448685233236, guid: f539a70f98c5eac4baa361a812cbf4ea,
@@ -3694,6 +3729,11 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!1 &1828833990 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1049531278905080, guid: f539a70f98c5eac4baa361a812cbf4ea,
+    type: 2}
+  m_PrefabInternal: {fileID: 1648558683}
 --- !u!224 &1828833991 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224387448685233236, guid: f539a70f98c5eac4baa361a812cbf4ea,
