@@ -244,6 +244,14 @@ public class CityManager : MonoBehaviour {
         return found;
     }
 
+    public bool isAlive(City city)
+    {
+        if (city.outbreakLevel > outbreakLimit)
+        {
+            return false;
+        }
+        return true;
+    }
     public bool CheckIfDoctorsWon()
     {
         return tm.CheckIfExceededTurnCount();
