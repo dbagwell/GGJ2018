@@ -75,7 +75,6 @@ public class InputManager : MonoBehaviour {
 								// Bring up options to mutate or spread
 								actionPanel.State = ActionPanelState.Disease;
 								actionPanel.gameObject.SetActive(true);
-//								cm.InfectCity(selectedObject);
 								break;
 							}
 
@@ -88,7 +87,6 @@ public class InputManager : MonoBehaviour {
 									// Bring up button asking to cure
 									actionPanel.State = ActionPanelState.Research;
 									actionPanel.gameObject.SetActive(true);
-//									cm.CureCity(selectedObject);
 								}
 
 								break;
@@ -116,7 +114,13 @@ public class InputManager : MonoBehaviour {
 									break;
 								}
 							case Player.Doctor: {
-
+									for (int i = 0; i<selectedCity.connectingCities.Count; i++) {
+										if (selectedCity.connectingCities[i] == nextCity) {
+											cm.CureCity(nextCity.gameObject, selectedDisease.StrainID);
+											cm.ResetLines(tm.currentPlayer);
+											isInTransmittingMode = false;
+										}
+									}
 									break;
 								}
 							}

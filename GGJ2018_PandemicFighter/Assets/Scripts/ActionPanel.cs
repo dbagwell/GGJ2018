@@ -79,6 +79,9 @@ public class ActionPanel : MonoBehaviour {
 	public void SendCureButtonPressed() {
 		gameObject.SetActive(false);
 		cityInfoPanel.gameObject.SetActive(false);
+
+		HighlightLines(city.doctorLines);
+
 		inputManager.isInTransmittingMode = true;
 	}
 

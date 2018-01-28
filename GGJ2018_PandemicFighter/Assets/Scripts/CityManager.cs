@@ -143,32 +143,51 @@ public class CityManager : MonoBehaviour {
         //
     }
 
-    public void CureCity(GameObject city/*, Disease strain */)
+	public void CureCity(GameObject city, int strainId)
     {
-        int i;
-        bool found = false;
-        int strainID = 2;
+		City cityComponent = city.GetComponent<City>();
 
-        City tempCity = city.GetComponent<City>();
-		tempCity.CureDisease(strainID);
+		bool foundDisease = false;
 
-        for (i = 0; i < cityDirectory.Count; i++)
-        {
-            if (cityDirectory[i] == city)
-            {
-                found = true;
-                break;
-            }
-        }
+		for (int i = 0; i<cityComponent.diseaseList.Count; i++) {
+			Disease disease = cityComponent.diseaseList[i];
+			if (disease.StrainID == strainId) {
+				disease.isCured = true;
+				foundDisease = true;
+			}
+		}
 
-        if (found)
-        {
-            tempCity.DecreaseOutbreakLevel();
-            if (tempCity.outbreakLevel == 0)
-            {
-                city.GetComponent<Image>().sprite = cleanCity;
-            }
-        }
+		if (!foundDisease) {
+			Disease newDisease = new Disease();
+			newDisease.StrainID = strainId;
+			newDisease.isCured = true;
+			newDisease.name = "Strain " + strainId;
+			cityComponent.diseaseList.Add(newDisease);
+		}
+//        int i;
+//        bool found = false;
+//        int strainID = 2;
+//
+//        City tempCity = city.GetComponent<City>();
+//		tempCity.CureDisease(strainID);
+//
+//        for (i = 0; i < cityDirectory.Count; i++)
+//        {
+//            if (cityDirectory[i] == city)
+//            {
+//                found = true;
+//                break;
+//            }
+//        }
+//
+//        if (found)
+//        {
+//            tempCity.DecreaseOutbreakLevel();
+//            if (tempCity.outbreakLevel == 0)
+//            {
+//                city.GetComponent<Image>().sprite = cleanCity;
+//            }
+//        }
     }
 
 
