@@ -127,6 +127,7 @@ public class InputManager : MonoBehaviour {
                                         if (cm.InfectCity(nextCity.gameObject, selectedDisease.StrainID))
                                         {
                                             cm.ResetLines(tm.currentPlayer);
+											selectedCity.diseaseTransmitAnimation.SetActive(false);
                                             InputState = InputState.EndTurn;
                                         }
 									}
@@ -139,7 +140,8 @@ public class InputManager : MonoBehaviour {
                                         if (cm.isAlive(nextCity))
                                         {
                                             cm.CureCity(nextCity.gameObject, selectedDisease.StrainID);
-                                            cm.ResetLines(tm.currentPlayer);
+											cm.ResetLines(tm.currentPlayer);
+											selectedCity.cureTransmitAnimation.SetActive(false);
                                             InputState = InputState.EndTurn;
                                         }
 									}

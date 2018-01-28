@@ -83,6 +83,7 @@ public class ActionPanel : MonoBehaviour {
 	public void SendCureButtonPressed() {
 		gameObject.SetActive(false);
 		cityInfoPanel.gameObject.SetActive(false);
+		city.cureTransmitAnimation.SetActive(true);
 
 		HighlightLines(city.doctorLines);
 
@@ -100,6 +101,7 @@ public class ActionPanel : MonoBehaviour {
 		Debug.Log("Spread");
 		gameObject.SetActive(false);
 		cityInfoPanel.gameObject.SetActive(false);
+		city.diseaseTransmitAnimation.SetActive(true);
 
 		HighlightLines(city.diseaseLines);
 

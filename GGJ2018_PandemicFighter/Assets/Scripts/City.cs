@@ -9,6 +9,9 @@ public class City : MonoBehaviour {
     public int outbreakLevel;
 	public string name;
 
+	public GameObject cureTransmitAnimation;
+	public GameObject diseaseTransmitAnimation;
+
 
 	public List<GameObject> diseaseLines = new List<GameObject>();
 	public List<GameObject> doctorLines = new List<GameObject>();
