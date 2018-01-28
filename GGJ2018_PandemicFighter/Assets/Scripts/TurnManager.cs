@@ -45,11 +45,11 @@ public class TurnManager : MonoBehaviour {
 
         if (turnCounter > maxTurns)
         {
-            text.text = "Doctors win. Everybody lives.";
+            text.text = "Doctors win.\nEverybody lives.";
         }
         else
         {
-            text.text = "The world is dead. It's the disease's planet now.";
+            text.text = "The world is dead.\nIt's the disease's planet now.";
         }
     }
 
