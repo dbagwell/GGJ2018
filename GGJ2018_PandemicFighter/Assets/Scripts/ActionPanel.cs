@@ -19,6 +19,8 @@ public class ActionPanel : MonoBehaviour {
 
 	public Material yellowLineMaterial;
 
+	public CityInfoPanel cityInfoPanel;
+
 	ActionPanelState state;
 	public ActionPanelState State {
 		get {
@@ -69,22 +71,26 @@ public class ActionPanel : MonoBehaviour {
 	public void ResearchButtonPressed() {
 		disease.isCured = true;
 		gameObject.SetActive(false);
+		cityInfoPanel.gameObject.SetActive(false);
 		// Update rest of the ui
 	}
 
 	public void SendCureButtonPressed() {
 		gameObject.SetActive(false);
+		cityInfoPanel.gameObject.SetActive(false);
 		// Show selectable cities
 	}
 
 	public void MutateButtonPressed() {
 		cityManager.InfectCity(city.gameObject, disease.StrainID+1);
 		gameObject.SetActive(false);
+		cityInfoPanel.gameObject.SetActive(false);
 		// Upate the rest of the ui
 	}
 
 	public void SpreadButtonPressed() {
 		gameObject.SetActive(false);
+		cityInfoPanel.gameObject.SetActive(false);
 		Debug.Log("Spread");
 		for (int i = 0; i<city.diseaseLines.Count; i++) {
 			Debug.Log("Line");
