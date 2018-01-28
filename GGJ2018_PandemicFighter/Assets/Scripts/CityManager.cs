@@ -18,7 +18,7 @@ public class CityManager : MonoBehaviour {
 	public GameObject diseasePathsParent;
 	public GameObject doctorPathsParent;
 	public List<GameObject> diseaseLines = new List<GameObject>();
-	public List<GameObject> doctorlLines = new List<GameObject>();
+	public List<GameObject> doctorLines = new List<GameObject>();
 
     public int outbreakLimit = 5;
 	public bool firstCityInfected = false;
@@ -39,8 +39,8 @@ public class CityManager : MonoBehaviour {
 
 			for (int j = 0; j<city.connectingCities.Count; j++) {
 				GameObject line = CreateLineBetweenCities(city, city.connectingCities[j], Player.Doctor);
-				city.doctorlLines.Add(line);
-				city.connectingCities[j].doctorlLines.Add(line);
+				city.doctorLines.Add(line);
+				city.connectingCities[j].doctorLines.Add(line);
 			}
 			for (int j = 0; j<city.diseaseConnectingCities.Count; j++) {
 				GameObject line = CreateLineBetweenCities(city, city.diseaseConnectingCities[j], Player.Disease);
@@ -56,6 +56,34 @@ public class CityManager : MonoBehaviour {
 	void Update ()
     {
 		
+	}
+
+	public void ResetLines(Player player) {
+		switch (player) {
+		case Player.Disease: {
+				for (int i = 0; i<diseaseLines.Count; i++) {
+					GameObject line = diseaseLines[i];
+					LineRenderer lineRenderer = line.GetComponent<LineRenderer>();
+					lineRenderer.material = blackLineMaterial;
+				}
+
+				diseasePathsParent.SetActive(true);
+				doctorPathsParent.SetActive(false);
+				break;
+			}
+		case Player.Doctor: {
+				for (int i = 0; i<doctorLines.Count; i++) {
+					GameObject line = doctorLines[i];
+					LineRenderer lineRenderer = line.GetComponent<LineRenderer>();
+					lineRenderer.material = blackLineMaterial;
+				}
+				diseasePathsParent.SetActive(false);
+				doctorPathsParent.SetActive(true);
+				break;
+			}
+		}
+
+
 	}
 
 	GameObject CreateLineBetweenCities(City city1, City city2, Player player) {
@@ -82,7 +110,7 @@ public class CityManager : MonoBehaviour {
 				break;
 			}
 		case Player.Doctor: {
-				doctorlLines.Add(line);
+				doctorLines.Add(line);
 				line.transform.parent = doctorPathsParent.gameObject.transform;
 				break;
 			}

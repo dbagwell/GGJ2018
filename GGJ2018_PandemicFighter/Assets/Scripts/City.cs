@@ -11,7 +11,7 @@ public class City : MonoBehaviour {
 
 
 	public List<GameObject> diseaseLines = new List<GameObject>();
-	public List<GameObject> doctorlLines = new List<GameObject>();
+	public List<GameObject> doctorLines = new List<GameObject>();
     
 	// Use this for initialization
 	void Start () {

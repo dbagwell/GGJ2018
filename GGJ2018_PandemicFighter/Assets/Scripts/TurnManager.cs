@@ -10,6 +10,8 @@ public class TurnManager : MonoBehaviour {
 	public GameObject passTurnScreen;
 	public GameObject passTurnScreenText;
 
+	public CityManager cityManager;
+
 	public Player currentPlayer = Player.Disease;
 	public int turn = 0;
 
@@ -30,7 +32,7 @@ public class TurnManager : MonoBehaviour {
 	}
 
 	public void StartTurnButtonPressed () {
-		// send current player to city manager and tell it to update the cities and pathways for that turn
+		cityManager.ResetLines(currentPlayer);
 		passTurnScreen.SetActive(false);
 	}
 

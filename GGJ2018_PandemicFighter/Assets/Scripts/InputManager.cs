@@ -109,6 +109,7 @@ public class InputManager : MonoBehaviour {
 									for (int i = 0; i<selectedCity.diseaseConnectingCities.Count; i++) {
 										if (selectedCity.diseaseConnectingCities[i] == nextCity) {
 											cm.InfectCity(nextCity.gameObject, selectedDisease.StrainID);
+											isInTransmittingMode = false;
 										}
 									}
 									break;
