@@ -233,6 +233,14 @@ public class InputManager : MonoBehaviour {
 						actionPanel.gameObject.SetActive(false);
 					} else {
 						cityInfoPanel.gameObject.SetActive(false);
+
+						if (inputState == InputState.Transmit) {
+							InputState = InputState.SelectCity;
+							cm.ResetLines(tm.currentPlayer);
+							selectedCity.diseaseTransmitAnimation.SetActive(false);
+							selectedCity.cureTransmitAnimation.SetActive(false);
+						}
+
 					}
                         return null;
                     }
