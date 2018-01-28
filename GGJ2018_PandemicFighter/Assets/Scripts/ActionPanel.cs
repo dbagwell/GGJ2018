@@ -7,6 +7,10 @@ public enum ActionPanelState {Research, SendCure, Disease}
 
 public class ActionPanel : MonoBehaviour {
 
+	public Sprite researchSprite;
+	public Sprite diseaseSprite;
+	public Sprite cureSprite;
+
 	public Image image;
 	public Button researchButton;
 	public Button sendCureButton;
@@ -32,7 +36,7 @@ public class ActionPanel : MonoBehaviour {
 
 			switch (state) {
 			case ActionPanelState.Research: {
-					// set image
+					image.sprite = researchSprite;
 					researchButton.gameObject.SetActive(true);
 					sendCureButton.gameObject.SetActive(false);
 					mutateButton.gameObject.SetActive(false);
@@ -40,7 +44,7 @@ public class ActionPanel : MonoBehaviour {
 					break;
 				}
 			case ActionPanelState.SendCure: {
-					// set image
+					image.sprite = cureSprite;
 					researchButton.gameObject.SetActive(false);
 					sendCureButton.gameObject.SetActive(true);
 					mutateButton.gameObject.SetActive(false);
@@ -48,7 +52,7 @@ public class ActionPanel : MonoBehaviour {
 					break;
 				}
 			case ActionPanelState.Disease: {
-					// set image
+					image.sprite = diseaseSprite;
 					researchButton.gameObject.SetActive(false);
 					sendCureButton.gameObject.SetActive(false);
 					mutateButton.gameObject.SetActive(true);
