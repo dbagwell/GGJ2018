@@ -96,7 +96,7 @@ public class InputManager : MonoBehaviour {
 						break;
                     }
                     case Clickables.City: {
-						if (tm.turn == 0 && tm.currentPlayer == Player.Disease && !cm.firstCityInfected) {
+						if (tm.turnCounter == 0 && tm.currentPlayer == Player.Disease && !cm.firstCityInfected) {
 							cm.InfectCity(selectedObject, 0);
 							cm.firstCityInfected = true;
 						} else if (isInTransmittingMode) {

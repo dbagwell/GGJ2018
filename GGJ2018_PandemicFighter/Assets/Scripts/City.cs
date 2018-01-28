@@ -26,6 +26,11 @@ public class City : MonoBehaviour {
 		
 	}
 
+    public void Reset()
+    {
+        diseaseList.Clear();
+        outbreakLevel = 0;
+    }
     public bool DoIHaveAllCures()
     {
         for (int i = 0; i < diseaseList.Count; i++)

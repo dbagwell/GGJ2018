@@ -6,9 +6,10 @@ using UnityEngine.UI;
 public class CityManager : MonoBehaviour {
 
     public List<GameObject> cityDirectory;
-//    public List<GameObject> diseasedCities;
-//    public List<GameObject> deadCities;
-//    public List<GameObject> cleanCities;
+    public TurnManager tm;
+    //    public List<GameObject> diseasedCities;
+    //    public List<GameObject> deadCities;
+    //    public List<GameObject> cleanCities;
     public Sprite cleanCity;
     public Sprite diseasedCity;
     public Sprite deadCity;
@@ -58,7 +59,18 @@ public class CityManager : MonoBehaviour {
 		
 	}
 
-	public void ResetLines(Player player) {
+    public void Reset()
+    {
+        int i;
+        firstCityInfected = false;
+        for (i = 0; i < cityDirectory.Count; i++)
+        {
+            cityDirectory[i].GetComponent<City>().Reset();
+            cityDirectory[i].GetComponent<Image>().sprite = cleanCity;
+        }
+    }
+
+    public void ResetLines(Player player) {
 		switch (player) {
 		case Player.Disease: {
 				for (int i = 0; i<diseaseLines.Count; i++) {
@@ -135,6 +147,15 @@ public class CityManager : MonoBehaviour {
             {
                 DecreaseOutbreak(cityDirectory[i]);
             }
+        }
+    }
+
+    public void CheckForWin()
+    {
+        if (CheckIfWorldDead() || CheckIfDoctorsWon())
+        {
+            tm.ReportWinner();
+            Reset();
         }
     }
 
@@ -217,6 +238,25 @@ public class CityManager : MonoBehaviour {
             //cleanCities.RemoveAt(i);
             //diseasedCities.Add(city);
         }
+    }
+
+    public bool CheckIfDoctorsWon()
+    {
+        return tm.CheckIfExceededTurnCount();
+    }
+
+    public bool CheckIfWorldDead()
+    {
+        int i;
+
+        for (i = 0; i < cityDirectory.Count; i++)
+        {
+            if (cityDirectory[i].GetComponent<City>().outbreakLevel <= outbreakLimit)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void IncreaseOutbreak(GameObject city)
