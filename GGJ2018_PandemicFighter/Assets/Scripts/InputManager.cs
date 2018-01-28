@@ -124,9 +124,11 @@ public class InputManager : MonoBehaviour {
 							case Player.Disease: {
 								for (int i = 0; i<selectedCity.diseaseConnectingCities.Count; i++) {
 									if (selectedCity.diseaseConnectingCities[i] == nextCity) {
-										cm.InfectCity(nextCity.gameObject, selectedDisease.StrainID);
-										cm.ResetLines(tm.currentPlayer);
-										InputState = InputState.EndTurn;
+                                        if (cm.InfectCity(nextCity.gameObject, selectedDisease.StrainID))
+                                        {
+                                            cm.ResetLines(tm.currentPlayer);
+                                            InputState = InputState.EndTurn;
+                                        }
 									}
 								}
 								break;

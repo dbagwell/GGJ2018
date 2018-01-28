@@ -212,7 +212,7 @@ public class CityManager : MonoBehaviour {
     }
 
 
-    public void InfectCity(GameObject city, int strainId)
+    public bool InfectCity(GameObject city, int strainId)
     {
         int i;
         bool found = false;
@@ -221,7 +221,10 @@ public class CityManager : MonoBehaviour {
 		strain.name = "Strain " + strainId;
 
         City tempCity = city.GetComponent<City>();
-        tempCity.AddDisease(strain);
+        if (!tempCity.AddDisease(strain))
+        {
+            return found;
+        }
 
         for (i = 0; i < cityDirectory.Count; i++)
         {
@@ -238,6 +241,7 @@ public class CityManager : MonoBehaviour {
             //cleanCities.RemoveAt(i);
             //diseasedCities.Add(city);
         }
+        return found;
     }
 
     public bool CheckIfDoctorsWon()

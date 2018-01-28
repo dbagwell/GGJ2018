@@ -70,9 +70,23 @@ public class City : MonoBehaviour {
 
     }
 
-    public void AddDisease(Disease newStrain)
+    public bool AddDisease(Disease newStrain)
     {
-        diseaseList.Add(newStrain);
+        int i;
+        bool result = true;
+        for(i =0; i<diseaseList.Count;i++)
+        {
+            if (diseaseList[i].StrainID == newStrain.StrainID)
+            {
+                result = false;
+            }
+        }
+
+        if (result)
+        {
+            diseaseList.Add(newStrain);
+        }
+        return result;
     }
 
     public void CureDisease(int strainId)
