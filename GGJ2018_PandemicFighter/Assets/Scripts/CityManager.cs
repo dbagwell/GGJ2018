@@ -164,10 +164,10 @@ public class CityManager : MonoBehaviour {
         //
     }
 
-	public void CureCity(GameObject city, int strainId)
+	public bool CureCity(GameObject city, int strainId)
     {
 		City cityComponent = city.GetComponent<City>();
-
+        
 		bool foundDisease = false;
 
 		for (int i = 0; i<cityComponent.diseaseList.Count; i++) {
@@ -185,30 +185,32 @@ public class CityManager : MonoBehaviour {
 			newDisease.name = "Strain " + strainId;
 			cityComponent.diseaseList.Add(newDisease);
 		}
-//        int i;
-//        bool found = false;
-//        int strainID = 2;
-//
-//        City tempCity = city.GetComponent<City>();
-//		tempCity.CureDisease(strainID);
-//
-//        for (i = 0; i < cityDirectory.Count; i++)
-//        {
-//            if (cityDirectory[i] == city)
-//            {
-//                found = true;
-//                break;
-//            }
-//        }
-//
-//        if (found)
-//        {
-//            tempCity.DecreaseOutbreakLevel();
-//            if (tempCity.outbreakLevel == 0)
-//            {
-//                city.GetComponent<Image>().sprite = cleanCity;
-//            }
-//        }
+      
+        //        int i;
+        //        bool found = false;
+        //        int strainID = 2;
+        //
+        //        City tempCity = city.GetComponent<City>();
+        //		tempCity.CureDisease(strainID);
+        //
+        //        for (i = 0; i < cityDirectory.Count; i++)
+        //        {
+        //            if (cityDirectory[i] == city)
+        //            {
+        //                found = true;
+        //                break;
+        //            }
+        //        }
+        //
+        //        if (found)
+        //        {
+        //            tempCity.DecreaseOutbreakLevel();
+        //            if (tempCity.outbreakLevel == 0)
+        //            {
+        //                city.GetComponent<Image>().sprite = cleanCity;
+        //            }
+        //        }
+        return !foundDisease;
     }
 
 
