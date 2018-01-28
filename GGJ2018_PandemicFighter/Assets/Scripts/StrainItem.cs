@@ -12,10 +12,13 @@ public class StrainItem : MonoBehaviour {
 		}
 		set {
 			disease = value;
-			updateTextBackground();
+			updateTextBackgroundAndImage();
 			text.text = disease.name;
 		}
 	}
+
+	public Sprite diseaseSprite;
+	public Sprite cureSprite;
 
 	public Image icon;
 	public Image textBackground;
@@ -30,11 +33,13 @@ public class StrainItem : MonoBehaviour {
 		
 	}
 
-	void updateTextBackground () {
+	void updateTextBackgroundAndImage () {
 		if (disease.isCured) {
 			textBackground.color = Color.green;
+			icon.sprite = cureSprite;
 		} else {
 			textBackground.color = Color.red;
+			icon.sprite = diseaseSprite;
 		}
 	}
 }
