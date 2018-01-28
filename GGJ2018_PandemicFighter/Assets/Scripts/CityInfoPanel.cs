@@ -7,14 +7,48 @@ public class CityInfoPanel : MonoBehaviour {
 
 	City city;
 	public City City {
-		get {
-			return city;
-		}
-		set {
-			city = value;
-			cityNameText.text = city.name;
-			PopulateStrainItems();
-		}
+        get {
+            return city;
+        }
+        set {
+            city = value;
+            cityNameText.text = city.name;
+            PopulateStrainItems();
+            outbreakLevelText.text = city.outbreakLevel.ToString();
+            switch (city.outbreakLevel)
+            {
+                case 0:
+                    {
+outbreakLevelText.color = Color.white;
+                        break;
+                    }
+                case 1:
+                    {
+                        outbreakLevelText.color = Color.green;
+                        break;
+                    }
+                case 2:
+                    {
+                        outbreakLevelText.color = Color.yellow;
+                        break;
+                    }
+                case 3:
+                    {
+                        outbreakLevelText.color = Color.red;
+                        break;
+                    }
+                case 4:
+                    {
+                        outbreakLevelText.color = Color.magenta;
+                        break;
+                    }
+                case 5:
+                    {
+                        outbreakLevelText.color = Color.black;
+                        break;
+                    }
+
+            } }
 	}
 
 	public StrainItem strainItemPrefab;
@@ -22,6 +56,7 @@ public class CityInfoPanel : MonoBehaviour {
 
 	public Text cityNameText;
 	public GameObject strainItemList;
+    public Text outbreakLevelText;
 
 	public List<StrainItem> strainItems;
 
