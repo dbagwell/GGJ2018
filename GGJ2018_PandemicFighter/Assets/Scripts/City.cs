@@ -8,6 +8,10 @@ public class City : MonoBehaviour {
 	public List<Disease> diseaseList;
     public int outbreakLevel;
 	public string name;
+
+
+	public List<GameObject> diseaseLines = new List<GameObject>();
+	public List<GameObject> doctorlLines = new List<GameObject>();
     
 	// Use this for initialization
 	void Start () {

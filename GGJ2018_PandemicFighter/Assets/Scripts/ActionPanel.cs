@@ -17,6 +17,8 @@ public class ActionPanel : MonoBehaviour {
 	public City city;
 	public CityManager cityManager;
 
+	public Material yellowLineMaterial;
+
 	ActionPanelState state;
 	public ActionPanelState State {
 		get {
@@ -83,6 +85,14 @@ public class ActionPanel : MonoBehaviour {
 
 	public void SpreadButtonPressed() {
 		gameObject.SetActive(false);
+		Debug.Log("Spread");
+		for (int i = 0; i<city.diseaseLines.Count; i++) {
+			Debug.Log("Line");
+			GameObject line = city.diseaseLines[i];
+			LineRenderer lineRenderer = line.GetComponent<LineRenderer>();
+			lineRenderer.material = yellowLineMaterial;
+			Debug.Log("Yellow");
+		}
 		// Show selectable cities
 	}
 }

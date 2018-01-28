@@ -13,6 +13,7 @@ public class CityManager : MonoBehaviour {
     public Sprite diseasedCity;
     public Sprite deadCity;
 
+	public Material blackLineMaterial;
 
 	public GameObject diseasePathsParent;
 	public GameObject doctorPathsParent;
@@ -37,11 +38,17 @@ public class CityManager : MonoBehaviour {
 			City city = cityDirectory[i].GetComponent<City>();
 
 			for (int j = 0; j<city.connectingCities.Count; j++) {
-				CreateLineBetweenCities(city, city.connectingCities[j], Player.Doctor);
+				GameObject line = CreateLineBetweenCities(city, city.connectingCities[j], Player.Doctor);
+				city.doctorlLines.Add(line);
+				city.connectingCities[j].doctorlLines.Add(line);
 			}
 			for (int j = 0; j<city.diseaseConnectingCities.Count; j++) {
-				CreateLineBetweenCities(city, city.diseaseConnectingCities[j], Player.Disease);
+				GameObject line = CreateLineBetweenCities(city, city.diseaseConnectingCities[j], Player.Disease);
+				city.diseaseLines.Add(line);
+				city.diseaseConnectingCities[j].diseaseLines.Add(line);
 			}
+
+			doctorPathsParent.SetActive(false);
         }
 	}
 	
@@ -51,19 +58,19 @@ public class CityManager : MonoBehaviour {
 		
 	}
 
-	void CreateLineBetweenCities(City city1, City city2, Player player) {
+	GameObject CreateLineBetweenCities(City city1, City city2, Player player) {
 		GameObject line = new GameObject();
 		LineRenderer lineRenderer = line.AddComponent<LineRenderer>();
 		lineRenderer.startWidth = 10;
 		lineRenderer.endWidth = 10;
-		lineRenderer.material = new Material(Shader.Find("Specular"));
+		lineRenderer.material = blackLineMaterial;
 		lineRenderer.startColor = Color.black;
 		lineRenderer.endColor = Color.black;
 
 		Vector3 firstPosition = city1.gameObject.transform.position;
-		firstPosition.z = 100;
+		firstPosition.z = 150;
 		Vector3 secondPosition = city2.gameObject.transform.position;
-		secondPosition.z = 100;
+		secondPosition.z = 150;
 
 		lineRenderer.SetPositions(new [] {firstPosition, secondPosition});
 
@@ -80,6 +87,8 @@ public class CityManager : MonoBehaviour {
 				break;
 			}
 		}
+
+		return line;
 	}
 
     public void StartDiseaseTurn()
